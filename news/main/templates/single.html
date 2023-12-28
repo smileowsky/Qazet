@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block 'content' %}
+
+<!-- News Single Content -->
+<div class="main-content container">
+    <div class="col-md-12">
+        <div class="page_header">
+            <div class="col-md-12">
+                <h5 class="no-uppercase">{{single.news_name}}</h5>
+                <ul class="bcrumbs">
+                    <li><a href="{% url 'home' %}">home</a></li>
+                    <li><a href="{% url 'category_detail' cat_id=single.news_category %}">{{single.news_category}}</a></li>
+                    <li>{{single.news_name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8 news-single">
+        <div id="bl-featured">
+            <div class="bl-featured-big">
+                <a href="{{single.news_link}}">
+                    <img src="{{single.news_image}}" class="img-responsive" alt="" />
+                    <div class="bl-info">
+                        <h3>{{single.news_name}}<br>{{single.news_category}}</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <p>{{single.news_text}}</p>
+        <div class="ns-meta">
+            <div class="nsm-inner">
+                <span><i class="fa fa-clock-o"></i>{{single.news_date|date:'d-m-Y'}}</span>
+                <span><i class="fa fa-comments"></i>{{single.comsay}}</span>
+            </div>
+        </div>
+
+        {% if number > 0 %}
+        <div class="news-comment">
+            <h5>Şərhlər</h5>
+            <ul>
+                {% for info in data %}
+                <li>
+                    <img src="{% static 'images/default-profile-comment.jpg' %}" alt="User Photo"
+                        style="width: 80px; height: 80px;" />
+                    <div class="nc-inner">
+                        <h6>{{info.user_name}}<span>{{info.comment_date}}</span></h6>
+                        <p>{{info.user_comment}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="n-commentform">
+            <h5>Şərh bildir</h5>
+            <form method="POST" action="{% url 'comments' single.id %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="name" placeholder="Ad" class="form-control"><br>
+                        <input type="text" name="surname" placeholder="Soyad" class="form-control"><br>
+                        <input type="email" name="email" placeholder="E-mail" class="form-control"><br>
+                        <textarea name="text" placeholder="Şərh" class="form-control"></textarea><br>
+                        <button name="submit">Şərh yazın</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="col-md-4">
+        <!-- Popular News -->
+        <div class="side-widget p-news">
+            <h5><span>Trend xəbərlər</span></h5>
+            <div class="sw-inner">
+                {% for info in data2 %}
+                <ul>
+                    <li>
+                        <img src="{{info.news_image}}" alt="" />
+                        <div class="pn-info">
+                            <em><i class="fa fa-clock-o"></i>{{info.news_date}}<a href="#"><i
+                                        class="fa fa-comments"></i>{{info.comsay}}</a></em>
+                            <h4><a href="{% url 'single' info.id %}">{{info.news_name}}</a></h4>
+                        </div>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Banner -->
+        <div class="side-widget sw-banner">
+            <a href="#"><img src="{% static 'images/banner/3.jpg' %}" class="img-responsive" alt="" /></a>
+        </div>
+        <div class="side-widget m-comment">
+            <h5><span>Ən çox şərh edilənlər</span></h5>
+            {% for info in data3 %}
+            <ul>
+                <li>
+                    <img src={{info.news_image}} alt="" />
+                    <span>{{info.news_category}}</span>
+                    <h4><a href="{% url 'single' info.id %}">{{info.news_name}}</a></h4>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </aside>
+</div>
+{% endblock %}

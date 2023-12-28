@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block 'content' %}
+<!-- News Content -->
+<div class="main-content container">
+    <div class="col-md-12">
+        <div class="page_header">
+            <div class="col-md-3 ph-prev">
+                <a href="#"><img src="{% static 'images/xtra/21.jpg' %}" class="img-responsive" alt="" /></a>
+            </div>
+            <div class="col-md-6">
+                {% for info in cat %}
+                <h5>{{info.news_category}}</h5>
+                <ul class="bcrumbs">
+                    <li><a href="{% url 'home' %}">home</a></li>
+                    <li>{{info.news_category}}</li>
+                </ul>
+                {% endfor %}
+            </div>
+            <div class="col-md-3 ph-next">
+                <a href="#" class="pull-right"><img src="{% static 'images/xtra/22.jpg' %}" class="img-responsive"
+                        alt="" /></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            {% for info in data1 %}
+            <div class="col-md-4">
+                <a href="{% url 'single' info.id %}">
+                    <div class="news-thumb">
+                        <img style="height: 250px; width: 380px;" src="{{info.news_image}}" class="img-responsive"
+                            alt="" />
+                        <h4>{{info.news_name}}</h4>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-md-8" id="blf-wrap">
+                <div id="bl-featured">
+                    {% for info in data3 %}
+                    <div class="bl-featured-big">
+                        <a href="{% url 'single' info.id %}">
+                            <img style="height: 460px;" src="{{info.news_image}}" class="img-responsive" alt="" />
+                            <div class="bl-info">
+                                <h3>{{info.news_name}}</h3>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a href="#">
+                    <div class="news-thumb">
+                        <img src="{% static 'images/news/7.jpg' %}" class="img-responsive" alt="" />
+                        <h5>Authors, VAT and a<br>Global Marketplace</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for info in data2 %}
+            <div class="col-md-3">
+                <div class="news-thumb1">
+                    <img style="height: 150px; width: 250px;" src="{{info.news_image}}" class="img-responsive" alt="" />
+                </div>
+                <div class="nt1-inner">
+                    <h3><a href="{% url 'single' info.id %}">{{info.news_name}}</a></h3>
+                    <em><i class="fa fa-clock-o"></i>{{info.news_date|date:'d-m-Y'}}<a href="#"><i
+                                class="fa fa-comments"></i>
+                            5</a></em>
+                    <p>{{info.news_text}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="clearfix space30"></div>
+        </div>
+    </div>
+    {% endblock %}

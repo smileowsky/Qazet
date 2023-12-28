@@ -1,0 +1,54 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <h1>NEWS</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary" name="take_it_qafqaz">GET NEWS QAFQAZ</button>
+            <button class="btn btn-primary" name="take_it_milli">GET NEWS MILLI</button>
+            <button class="btn btn-danger" name="delete">DELETE NEWS</button>
+        </form>
+
+        <table class="table table-dark table-striped-columns">
+            <thead>
+                <th>#</th>
+                <th>News</th>
+                <th>Image</th>
+                <th>Text</th>
+                <th>Source</th>
+                <th>Category</th>
+                <th>Link</th>
+                <th>Date</th>
+            </thead>
+
+            <tbody>
+                {% for info in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ info.news_name|safe }}</td>
+                    <td><img style="width: 90px; height: 80;" src="{{ info.news_image }}"></td>
+                    <td>{{ info.news_text }}</td>
+                    <td>{{ info.news_source }}</td>
+                    <td>{{ info.news_category }}</td>
+                    <td>{{ info.news_link }}</td>
+                    <td>{{ info.news_date | date:'Y-m-d'}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>

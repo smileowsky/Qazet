@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block 'content' %}
+<!-- Main Content -->
+<div class="main-content container">
+	<div class="col-md-8 block-1">
+		<div class="row">
+			<div class="col-md-3 b1-aside">
+				<h5><span>Son xəbər</span></h5>
+				<div class="bla-content">
+					{% for info in data1 %}
+					<span class="cat-default">{{info.news_category}}</span>
+					<p><i class="fa fa-clock-o"></i> {{info.news_date|date:'d-m-Y'}}</p>
+					<h4><a href="{% url 'single' info.id %}">{{info.news_name}}</a></h4>
+					<div class="sep"></div>
+					{% endfor %}
+					<a href="#" class="btn1">View All Posts</a>
+				</div>
+				<div class="bla-content banner">
+					<img src="{% static 'images/banner/2.jpg' %}" class="img-responsive" alt="" />
+				</div>
+				<h5><span>Tweets</span></h5>
+				<div id="tweet-feed">
+					<div class="tf-info">
+						<img src="{% static 'images/logo-pic.png' %}" alt="" />
+						<p>Check out 'Momental - Vertical Navigation HTML5 Template' on <a href="#">@EnvatoMarket</a> by
+							<a href="#">@premiummlayers</a> #themeforest <span><a
+									href="#">http://t.co/eva3o65Kky</a></span>
+						</p>
+					</div>
+					<div class="tf-info">
+						<img src="{% static 'images/logo-pic.png' %}" alt="" />
+						<p>Check out 'Momental - Vertical Navigation HTML5 Template' on <a href="#">@EnvatoMarket</a> by
+							<a href="#">@premiummlayers</a> #themeforest <span><a
+									href="#">http://t.co/eva3o65Kky</a></span>
+						</p>
+					</div>
+					<div class="tf-info">
+						<img src="{% static 'images/logo-pic.png' %}" alt="" />
+						<p>Check out 'Momental - Vertical Navigation HTML5 Template' on <a href="#">@EnvatoMarket</a> by
+							<a href="#">@premiummlayers</a> #themeforest <span><a
+									href="#">http://t.co/eva3o65Kky</a></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9 block-right">
+				<div id="bl-featured">
+					{% for info in data2 %}
+					<div class="bl-featured-big" style="height: 350px;">
+						<img src="{{info.news_image}}" class="img-responsive" alt="" />
+						<div class="bl-info">
+							<span>{{info.news_category}}</span>
+							<h3><a href="{% url 'single' info.id %}">{{info.news_name}}</a></h3>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+				<!-- Featured News -->
+				<div class="featured-news">
+					<h5><span>Seçilmiş Xəbərlər</span></h5>
+					<div class="row">
+						{% for info in data5 %}
+						<div class="col-md-6">
+							<div class="fn-inner" style="height:350px">
+								<div class="fn-thumb">
+									<img style="height:190px" src="{{info.news_image}}" class="img-responsive" alt="{{info.news_name}}" />
+									<div class="fn-meta">{{info.news_category}}</div>
+								</div>
+								<h4><a href="{% url 'single' info.id %}" title="{{info.news_name}}">{{info.news_name}}</a></h4>
+								<em><i class="fa fa-clock-o"></i>{{info.news_date|date:'d-m-Y'}}<a href="#"><i
+											class="fa fa-comments"></i>{{info.comsay}}</a></em>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sidebar -->
+	<aside class="col-md-4">
+		<!-- Popular News -->
+		<div class="side-widget p-news">
+			<h5><span>Trend xəbərlər</span></h5>
+			<div class="sw-inner">
+				<ul>
+					{% for info in data3 %}
+					<li>
+						<img src={{info.news_image}} alt="{{info.news_name}}" />
+						<div class="pn-info">
+							<em><i class="fa fa-clock-o"></i> {{info.news_date|date:'Y-m-d'}} <a href="#"><i
+										class="fa fa-comments"></i>{{info.comsay}}</a></em>
+							<h4><a href="{% url 'single' info.id %}" title="{{info.news_name}}">{{info.news_name}}</a></h4>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<!-- Banner -->
+		<div class="side-widget sw-banner">
+			<a href="#"><img src="{% static 'images/banner/3.jpg' %}" class="img-responsive" alt="" /></a>
+		</div>
+		<div class="side-widget m-comment">
+			<h5><span>Ən çox şərh edilənlər</span></h5>
+			<ul>
+				{% for info in sorted_news %}
+				<li>
+					<img src="{{info.news_image}}" alt="{{info.news_name}}" />
+					<span>{{info.news_category}}</span>
+					<h4><a href="{% url 'single' info.id %}" title="{{info.news_name}}">{{info.news_name}}</a></h4>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</aside>
+</div>
+{% endblock %}
